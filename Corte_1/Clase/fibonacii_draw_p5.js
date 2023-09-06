@@ -4,7 +4,7 @@ let state;
 let arc_dev;
 let erase_;
 function setup() {
-  //frameRate(24);
+  //frameRate(1);
   createCanvas(1000, 1000);
   background(255);
   fixedCenterX = width/2;
@@ -114,8 +114,10 @@ function draw() {
     //background(255);
     erase_ = !erase_;
     if (erase_) {
+      strokeWeight(5);
       erase();
     }else {
+      strokeWeight(1);
       noErase();
     }
   }
