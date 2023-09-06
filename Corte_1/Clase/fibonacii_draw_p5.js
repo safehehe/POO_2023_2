@@ -2,15 +2,15 @@ let fixedCenterX;
 let fixedCenterY;
 let state;
 let arc_dev;
-let erase;
+let erase_;
 function setup() {
   //frameRate(24);
-  createCanvas(400, 400);
+  createCanvas(1000, 1000);
   background(255);
   fixedCenterX = width/2;
   fixedCenterY = height/2;
   arc_dev = 0;
-  erase = false;
+  erase_ = false;
   state =  {
               "step":0,
               "count":3,
@@ -112,11 +112,11 @@ function draw() {
   //console.log(arc_dev);
   if (arc_dev<= 0.1 && arc_dev >= 0){
     //background(255);
-    erase = !erase;
-    if (erase) {
-      stroke(255);
+    erase_ = !erase_;
+    if (erase_) {
+      erase();
     }else {
-      stroke(0);
+      noErase();
     }
   }
   
