@@ -17,5 +17,8 @@ function padovan(n){
       return fin;
     }
    }
- const n=5
- console.log(padovan(n))  
+
+for (let index = 0; index < 15; index++) {
+  console.log(`Termino : padovan(${index}) = ${padovan(index)}`)
+}
+
