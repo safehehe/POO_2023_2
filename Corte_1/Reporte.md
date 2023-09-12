@@ -1,0 +1,21 @@
+## Laura Juliana Rodriguez, Lisa M. Despaigne y Samuel F. Hernandez
+
+1. Se hizo uso de funciones,operadores, diferentes tipos de datos como cadenas, números y booleanos y bucles para desarrollar cada uno de los códigos.
+    1. Encontrar números primos entre 1 y 100. Se usa un bucle for que itera todos los números comenzando por 2 y dentro del bucle se llama la función primo (verifica si hay divisores dentro del rango)). 
+    2. Conjuntos como arreglos, Conjunto contenido en otro: Utiliza un ciclo while para iterar sobre los elementos del primer conjunto verificando si el elemento está incluido en el segundo conjunto termina al primer elemento que no se encuentre incluido 
+
+2. Para la serie de Fibonacci se utilizaron bucles de tipo while y el condicional if que permiten ir modificando el valor de la variable a medida que avance la sucesión, con el objetivo de generar el n-ésimo término,sumando los dos números anteriores (n-1)+(n-2)
+
+3. Para el código recursivo de la función de Padovan se usó el operador ternario (?) y para el código iterativo se utilizó un condicional y bucles del tipo for, obteniendo el n-ésimo término por medio de la suma de (n-2)+(n-3).
+
+4. Se divide el texto en palabras individuales usando split(), la función invertir recorre de atrás hacia adelante cada una de las palabras del texto (for); usa chArt() y concat() para construir las palabras inversas. Se llama la función se comparan las palabras originales con las invertidas, si son iguales se añade al arreglo palabrasInvertidas(contiene palíndromos).
+
+
+5. Se usa split() para dividir el texto. La función agruparPorLongitud agrupa las palabras en el arreglo gruposPorLenght. Con la función anagramas se separan las palabras en arreglos de caracteres ordenados alfabéticamente, si estos son iguales las palabras son anagramas. Las dos funciones anteriores son llamadas en la función buscarAnagramas y al completar la búsqueda muestra los pares en consola.  
+
+6. Implementar accesores a objetos (getters y setters) para las propiedades de datos del objeto "cuadrado". Randomize() da valores aleatorios a las propiedades (dentro de cierto límite). Se utiliza set() para cambiar los valores de las propiedades del cuadrado (definir los límites)  y get() para obtener el valor de estas.  
+
+7. Se creó un polígono regular como objeto de n números de lados , se realizan las operaciones correspondientes, haciendo referencia a el objeto usando this, para así hallar el área y volumen del polígono
+
+8. Se crea el lienzo usando la función setup() y createCanvas(). Con la función draw() se dibujan los cuadrados y círculos rojos y blancos que forman el logo. fill(“color”). Se añadió el texto: Santa Fe.
+9. Para realizar el dibujo de la espiral de Fibonacci se utilizaron figuras de arco provistas por p5.js, calculando el radio y el centro del arco a partir de la secuencia de Fibonacci y un estado que albergaba la dirección hacia la cual dirigir el siguiente centro, el estado también guardaba el cuadrante del arco que se debía dibujar.

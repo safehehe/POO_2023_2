@@ -9,7 +9,7 @@ function fibon(n) {
         i_1 = tmp;
         it -= 1;
     }
-    return tmp;
+    return i;
 }
 
 let fibo_ = 15;

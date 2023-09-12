@@ -4,7 +4,7 @@ let state;
 let arc_dev;
 let erase_;
 function setup() {
-  //frameRate(1);
+  //frameRate(5);
   createCanvas(1000, 1000);
   background(255);
   fixedCenterX = width/2;
@@ -52,7 +52,7 @@ function setup() {
                     //console.log("joas");
                     break;
                 }
-                this.next_arc()
+                this.next_arc();
                 ////console.log();
                 return this.step;
               },
@@ -95,13 +95,13 @@ function draw() {
   while (n>=0){
     fixedCenterX = fixedCenterX + state.get_fibo_2()*state.direction.x*5;
     fixedCenterY = fixedCenterY + state.get_fibo_2()*state.direction.y*5;
-    size = state.get_fibo_2()*10;
+    size = state.get_fibo()*10;
     ////console.log("x"+fixedCenterX);
     ////console.log("y"+fixedCenterY);
     //fill("red");
     //circle(fixedCenterX,fixedCenterY,10);
     //fill("white");
-    arc(fixedCenterX,fixedCenterY,state.get_fibo()*10,state.get_fibo()*10,state.arc_start,state.arc_end)
+    arc(fixedCenterX,fixedCenterY,size,size,state.arc_start,state.arc_end)
     //console.log(state.step)
     state.next_step();
     n-=1;
