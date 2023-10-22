@@ -23,8 +23,10 @@ function check(matrix, row, column, player) {
 }
 
 function setup() {
-    createCanvas(300, 300);
-    quadrille = createQuadrille(3, 3);
+    let userInput = prompt("Por favor, ingrese el  numero de filas y columnans del tablero:");
+    let numero = parseFloat(userInput);
+    createCanvas(numero*100, numero*100);  
+    quadrille = createQuadrille(numero, numero);
 }
 
 function draw() {
