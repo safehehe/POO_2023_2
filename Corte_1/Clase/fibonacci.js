@@ -11,10 +11,10 @@ function fibon(n) {
     }
     return i;
 }
-
+console.log("Fibonacci Recursivo");
 let fibo_ = 15;
 while (fibo_ >= 0){
-    console.log(fibon(fibo_));
+    console.log(`Termino : fibo(${fibo_}) = ${fibon(fibo_)}`);
     fibo_ -= 1;
 }
 
@@ -25,9 +25,9 @@ function fibor(n){
     }
     return fibor(n-1) + fibor(n-2)
 }
-
+console.log("Fibonacci Iterativo");
 fibo_ = 15;
 while (fibo_ >= 0){
-    console.log(fibor(fibo_));
+    console.log(`Termino : fibo(${fibo_}) = ${fibor(fibo_)}`);
     fibo_ -= 1;
 }
