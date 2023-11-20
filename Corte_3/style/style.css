@@ -61,7 +61,7 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 .task input {
@@ -72,20 +72,53 @@ body {
 }
 .task p {
      margin: 0;
-     font-size: 1.5em;
+     font-size: 1.2em;
 }
 .cupcake_blueprint {
     grid-column: 1;
     justify-self: center;
     grid-row: 1 / 4;
     max-width: 100%;
-    height: auto;
+    height: 100%;
     max-height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+#input .cupcake_blueprint img {
+    max-width: 90%;
+    height: auto;
+    max-height: 7vh;
+    margin-left: 15%;
+    position: absolute;
+}
+
+
+#task_desk .cupcake_blueprint img {
+    max-width: 90%;
+    height: auto;
+    max-height: 15vh;
+    margin-left: 10%;
+    position: absolute;
+}
+
+.cb1 {
+    z-index: 0;
+    top: 40%;
+}
+.cb2 {
+    z-index: 1;
+    top: 10%;
+}
+.cb3 {
+    z-index: 2;
+    scale: 0.5;
+    top: -10%;
 }
 
 .ingredient_blueprint {
     max-width: 50%;
-    max-height: 100%;
+    max-height: 85%;
 }
 
 .transporter{
