@@ -9,9 +9,9 @@
     <div id="input">
         <div class="task">
             <div class="cupcake_blueprint">
-                <img src="./images/MOLDE1.png" class="cb1">
-                <img src="./images/CREMA1.png" class="cb2">
-                <img src="./images/FRUTA1.png" class="cb3">
+                <img src="./images/MOLDE1.png" id="cb1">
+                <img src="./images/CREMA1.png" id="cb2">
+                <img src="./images/FRUTA1.png" id="cb3">
             </div>
             <label><input type="checkbox" class="cup_check">Cup</label>
             <label><input type="checkbox" class="bread_check">Bread</label>
@@ -35,15 +35,15 @@
                     <img src="./images/CREMA1.png" class="cb2">
                     <img src="./images/FRUTA1.png" class="cb3">
                 </div>
-                <label><input type="checkbox" class="cup_check">
+                <label class="check_ingredient">
                     <p>Cup</p>
                     <img class="ingredient_blueprint" src="./images/MOLDE1.png">
                 </label>
-                <label><input type="checkbox" class="bread_check">
+                <label ondragover="dragOver(event)" ondrop="drop(event)">
                     <p>Cream</p>
                     <img class="ingredient_blueprint" src="./images/CREMA1.png">
                 </label>
-                <label><input type="checkbox" class="topping_check">
+                <label>
                     <p>Topping</p>
                     <img class="ingredient_blueprint" src="./images/FRUTA1.png">
                 </label>

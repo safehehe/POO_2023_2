@@ -1,5 +1,12 @@
-document.body.onload = addTask
+//document.body.onload = addTask
 
+function dragOver(ev){
+  ev.preventDefault();
+  console.log(ev)
+}
+function drop(ev){
+  ev.preventDefault();
+}
 
 function addTask(){
     let ts = createTaskHtml("c2");
