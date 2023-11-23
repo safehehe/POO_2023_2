@@ -48,6 +48,14 @@ body {
     background-color: #A0E4F1;
     margin-bottom: 5%;
 }
+#input .cupcake_blueprint img {
+    max-width: 90%;
+    height: auto;
+    max-height: 7vh;
+    margin-left: 15%;
+    position: absolute;
+}
+/*Estilo del pedido en el escrtorio   START*/
 #task_desk .task {
     min-height: 100%;
     min-width: 20vw;
@@ -59,7 +67,6 @@ body {
     overflow: hidden;
 }
 #task_desk .task label {
-    pointer-events: all;
     max-height: 100%;
     max-width: 100%;
     width: 100%;
@@ -69,6 +76,7 @@ body {
     align-items: center;
     position: relative;
     & .drop-zone {
+        pointer-events: all;
         height: 90%;
         width: 50%;
         background-color: #E8F9FD;
@@ -91,13 +99,11 @@ body {
         position: absolute;
     }
 }
-
 .drop-active .drop-zone  {
     background-color: #59CE8F !important;
     border-color: #59CE8F !important;
     scale: 1.1;
 }
-
 .drop-active.drop-zone{
     background-color: #59CE8F !important;
     border-color: #59CE8F !important;
@@ -144,6 +150,8 @@ body {
     }
     50% {
         scale: 0.8;
+        background-color: #59CE8F;
+        border-color: #59CE8F;
     }
     75% {
         scale: 1.1;
@@ -166,13 +174,6 @@ body {
     position: relative;
 }
 
-#input .cupcake_blueprint img {
-    max-width: 90%;
-    height: auto;
-    max-height: 7vh;
-    margin-left: 15%;
-    position: absolute;
-}
 #task_desk .cupcake_blueprint img {
     max-width: 90%;
     height: auto;
@@ -201,7 +202,38 @@ body {
     max-height: 85%;
     filter: grayscale(100%);
 }
+/*Estilo del pedido en el escrtorio   START*/
+
+/*Estilo de la banda transportadora y cada ingrediente*/
+.selector {
+    pointer-events: all;
+    position: relative;
+    min-height: 20vh;
+    overflow: hidden;
+    /*background-color: #E8F9FD;
+    border-width: 2px 0 2px 0;
+    border-color: #4A4DE7;
+    border-style: solid;*/
+    & img {
+        max-height: 0;
+        position: absolute;
+        right: 100%;
+        transition: right 1s linear;
+    }
+}
+
+.show {
+    max-height: 90% !important;
+    right: -20% !important;
+    pointer-events: all;
+}
 
 .transporter{
+    position: absolute;
     background-color: #E05D5D;
+    border-radius: 20%;
+    height: 2vh;
+    width: 100%;
+    bottom: 10%;
+    z-index: 1;
 }

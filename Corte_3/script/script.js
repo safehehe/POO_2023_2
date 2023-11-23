@@ -12,11 +12,26 @@ function drag_over(ev){
 function drop(ev){
   console.log(ev)
   ev.preventDefault();
+  /*TODO Comparar informacion de llegada con informacion del pedidido
+    puede hacerce con el ID del lugar del drop (ingrediente-ID_pedidio)
+    y separar por ingrediente y pedidio, por que el drop solo sucede en una drop zone
+    y estas estan limitadas
+  */
   add_ing(ev)
 }
 function add_ing(ev){
   ev.target.offsetParent.classList.add("check_ingredient")
 }
+
+let ing = 0
+function showIng(ev){
+  console.log(ev)
+  let ings = ev.target.getElementsByTagName("img")
+  ings[ing].classList.add("show")
+
+}
+
+
 function addTask(){
     let ts = createTaskHtml("c2");
     let th = createHtmlElemnt(ts);
