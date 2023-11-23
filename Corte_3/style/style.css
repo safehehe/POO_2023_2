@@ -56,6 +56,7 @@ body {
     background-color: #00A19D;
     transition-duration: 10s;
     transition-property: right;
+    overflow: hidden;
 }
 #task_desk .task label {
     pointer-events: all;
@@ -64,17 +65,18 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 25%;
     align-items: center;
     position: relative;
     & .drop-zone {
         height: 90%;
         width: 50%;
-        background-color: #FFEBD8;
+        background-color: #E8F9FD;
         border-radius: 50%;
-        margin-right: 5%;
-        border: 2px solid grey;
-        transition: all 250ms;
+        border: 2px solid #A0E4F1;
+        transition: all 500ms,
+            width 100ms 900ms,
+            height 100ms 900ms;
         position: relative;
     }
     & .drop-zone::before {
@@ -82,29 +84,75 @@ body {
         height: 50%;
         width: 50%;
         border-radius: 50%;
-        border: 2px solid grey;
+        border: 2px solid #A0E4F1;
+        background-color: #E8F9FD;
         top: 23%;
         left: 23%;
         position: absolute;
-        background-color: #E05D5D;
-    }
-    & .drop-zone:hover {
-        background-color: #D2DE32;
-        scale: 1.1;
     }
 }
 
+.drop-active .drop-zone  {
+    background-color: #59CE8F !important;
+    border-color: #59CE8F !important;
+    scale: 1.1;
+}
+
+.drop-active.drop-zone{
+    background-color: #59CE8F !important;
+    border-color: #59CE8F !important;
+    scale: 1.1;
+}
 .check_ingredient {
+    animation-name: do-img;
+    animation-delay: 1s;
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+    & .drop-zone {
+        background-color: #FF1E00 !important;
+        border-color: #FF1E00 !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-width: 0 !important;
+    }
+    & .drop-zone::before {
+        animation-fill-mode: forwards;
+        animation-duration: 1s;
+        animation-name: drop-done-anim;
+        animation-timing-function: ease-in;
+    }
     & img {
-        filter: none;
+        animation-name: do-img;
+        animation-delay: 1s;
+        animation-duration: 250ms;
+        animation-fill-mode: forwards;
     }
 }
-.drag_over {
-    background-color: #00A19D;
-    filter: brightness(85%);
-    border-radius: 10px;
-    & p{
-        scale: 1.4;
+@keyframes do-img {
+    to {
+        justify-content: center;
+        filter: none;
+        gap:0;
+    }
+}
+@keyframes drop-done-anim {
+    0% {
+        scale: 1;
+    }
+    25% {
+        scale: 1.2;
+    }
+    50% {
+        scale: 0.8;
+    }
+    75% {
+        scale: 1.1;
+    }
+    90% {
+        scale: 0.6;
+    }
+    100% {
+        scale: 0;
     }
 }
 .cupcake_blueprint {

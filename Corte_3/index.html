@@ -29,23 +29,23 @@
             <span class="line"></span>
         </div>
         <div id="task_desk">
-            <div class="task">
+            <div class="task"><!--Terminado esto-->
                 <div class="cupcake_blueprint">
                     <img src="./images/MOLDE1.png" class="cb1">
                     <img src="./images/CREMA1.png" class="cb2">
                     <img src="./images/FRUTA1.png" class="cb3">
                 </div>
-                <label class="check_ingredient">
+                <label ondragenter="drag_enter(event)" ondragleave="drag_leave(event)" >
                     <img class="ingredient_blueprint" src="./images/MOLDE1.png">
-                    <div class="drop-zone"></div>
+                    <div class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
                 </label>
-                <label ondragover="dragOver(event)" ondrop="drop(event)">
+                <label ondragenter="drag_enter(event)">
                     <img class="ingredient_blueprint" src="./images/CREMA1.png">
-                    <div class="drop-zone"></div>
+                    <div class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
                 </label>
-                <label>
+                <label ondragenter="drag_enter(event)">
                     <img class="ingredient_blueprint" src="./images/FRUTA1.png">
-                    <div class="drop-zone"></div>
+                    <div class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
                 </label>
             </div>
         </div>

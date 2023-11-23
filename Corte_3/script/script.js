@@ -1,13 +1,22 @@
 //document.body.onload = addTask
-
-function dragOver(ev){
-  ev.preventDefault();
+function drag_enter(ev){
   console.log(ev)
+  ev.target.classList.add("drop-active")
+}
+function drag_leave(ev){
+  ev.target.classList.remove("drop-active")
+}
+function drag_over(ev){
+  ev.preventDefault();
 }
 function drop(ev){
+  console.log(ev)
   ev.preventDefault();
+  add_ing(ev)
 }
-
+function add_ing(ev){
+  ev.target.offsetParent.classList.add("check_ingredient")
+}
 function addTask(){
     let ts = createTaskHtml("c2");
     let th = createHtmlElemnt(ts);
