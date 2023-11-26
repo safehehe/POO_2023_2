@@ -1,31 +1,115 @@
-//document.body.onload = addTask
-function drag_enter(ev){
-  console.log(ev)
-  ev.target.classList.add("drop-active")
+const ingredientType = "application/ing"
+const input = document.getElementById("input")
+const taskDesk = document.getElementById("task_desk")
+document.body.onload = addTask
+const isIngredient = (ev)=> ev.dataTransfer.types.includes(ingredientType)
+function ingDragStart(ev){
+  ev.dataTransfer.setData(ingredientType,ev.target.src)
+  ev.dataTransfer.setData("text/plain",ev.target.id)
 }
-function drag_leave(ev){
-  ev.target.classList.remove("drop-active")
+function dishDragEnter(ev){
+  if (isIngredient(ev)){
+    ev.target.classList.add("drop-active")
+  }
 }
-function drag_over(ev){
+function dishDragLeave(ev){
+  if (isIngredient(ev)){
+    ev.target.classList.remove("drop-active")
+  }
+}
+function dragOver(ev){
   ev.preventDefault();
 }
-function drop(ev){
-  console.log(ev)
+
+function dishDrop(ev){
   ev.preventDefault();
-  /*TODO Comparar informacion de llegada con informacion del pedidido
-    puede hacerce con el ID del lugar del drop (ingrediente-ID_pedidio)
-    y separar por ingrediente y pedidio, por que el drop solo sucede en una drop zone
-    y estas estan limitadas
-  */
-  add_ing(ev)
+  if (isIngredient(ev)){
+    console.log(ev)
+    let [id_ing, ID_pedido] = ev.target.id.split("-")
+    //console.log(`${id_ing}, ${ID_pedido}`)
+    let ingrediente = ev.dataTransfer.getData(ingredientType).split("/").pop()
+    let ing_html_id = ev.dataTransfer.getData("text/plain")
+    let ing_html = document.getElementById(ing_html_id)
+    //console.log(ingrediente)
+    ID_pedido = parseInt(ID_pedido)
+    
+    if (id_ing === "molde"){
+      let result = pedidos[ID_pedido-1].checkMolde(ingrediente)
+      if (result === Pedido._true){
+        ev.target.parentElement.classList.add("check_ingredient")
+        ing_html.style.opacity = "0"
+      }else if (result === Pedido.done){
+        ev.target.parentElement.classList.add("check_ingredient")
+        console.log(`Pedido ${ID_pedido} Terminado`)
+      }else {
+        console.log("noes")
+        ev.target.classList.remove("drop-active")
+      }
+    }else if(id_ing === "crema"){
+      let result = pedidos[ID_pedido-1].checkCrema(ingrediente)
+      if (result === Pedido._true){
+        ev.target.parentElement.classList.add("check_ingredient")
+        ing_html.style.opacity = "0"
+      }else if (result === Pedido.done){
+        ev.target.parentElement.classList.add("check_ingredient")
+        console.log(`Pedido ${ID_pedido} Terminado`)
+      }else {
+        ev.target.classList.remove("drop-active")
+      }
+    }else if(id_ing === "topping"){
+      let result = pedidos[ID_pedido-1].checkTopping(ingrediente)
+      if (result === Pedido._true){
+        ev.target.parentElement.classList.add("check_ingredient")
+        ing_html.style.opacity = "0"
+      }else if (result === Pedido.done){
+        ev.target.parentElement.classList.add("check_ingredient")
+        console.log(`Pedido ${ID_pedido} Terminado`)
+      }else {
+        ev.target.classList.remove("drop-active")
+      }
+    }
+  }
 }
-function add_ing(ev){
-  ev.target.offsetParent.classList.add("check_ingredient")
+
+//todo Terminar el agragar ingrediente para usar la clase, mejorar la llegada de pedidos y ya
+
+const taskType = "application/task"
+const isTask = (ev) => ev.dataTransfer.types.includes(taskType)
+function taskDragStart(ev){
+  ev.dataTransfer.setData(taskType,ev.target.id)
 }
+function deskDragEnter(ev){
+  //console.log(ev)
+  if (isTask(ev) && taskDesk.childElementCount<3){
+    taskDesk.appendChild(Pedido.renderizarBorder())
+  }
+}
+
+function deskDragLeave(ev){
+  if (isTask(ev) && taskDesk.childElementCount<3){
+    taskDesk.removeChild(Pedido.renderizarBorder())
+  }
+}
+
+function deskDrop(ev){
+  ev.preventDefault()
+  if (taskDesk.childElementCount<3 && isTask(ev)){
+    let ID_pedido = ev.dataTransfer.getData(taskType)
+    console.log(ID_pedido)
+    let pedido = document.getElementById(ID_pedido)
+    pedido.draggable = false
+    if (isTask(ev)){
+      taskDesk.removeChild(Pedido.renderizarBorder())
+      taskDesk.appendChild(pedido)
+    }
+  }
+}
+
+
 
 let ing = 0
 function showIng(ev){
-  console.log(ev)
+  //console.log(ev)
   let ings = ev.target.getElementsByTagName("img")
   ings[ing].classList.add("show")
 
@@ -33,10 +117,10 @@ function showIng(ev){
 
 
 function addTask(){
-    let ts = createTaskHtml("c2");
-    let th = createHtmlElement(ts);
-    let task_desk = document.getElementById("task_desk");
-    task_desk.append(th)
+  //setTimeout(addTask,10000)
+  console.log("Pedido creado")
+  let next_pedido = Pedido.crear()
+  input.appendChild(next_pedido.renderizar())
 }
 
 /**
@@ -50,34 +134,6 @@ function createHtmlElement(html){
     return a.content.firstChild;
 }
 
-/**
- * 
- * @param {String} id 
- * @returns {String}
- */
-function createTaskHtml(id){
-    return `<div class="task" id=${id}>
-    <img class="cupcake_blueprint" src="./images/placeholder.png">
-    <label><input type="checkbox" class="cup_check">Cup</label>
-    <label><input type="checkbox" class="bread_check">Bread</label>
-    <label><input type="checkbox" class="topping_check">Topping</label>
-    </div>`
-}
-
-function moveTasks(ev){
-    let task_desk = document.getElementById("task_desk")
-    if (ev.target.checked){
-      let el = task_desk.getElementsByClassName("task");
-      for(let i = 0; i<el.length; i++){
-        el[i].style.right = "100%"
-      }
-    }else {
-      let el = task_desk.getElementsByClassName("task");
-      for(let i = 0; i<el.length; i++){
-        el[i].style.right = "0"
-      }
-    }
-  }
 
 
 
@@ -116,20 +172,20 @@ class Crema extends Ingrediente {
   }
 }
 
-class Fruta extends Ingrediente {
+class Topping extends Ingrediente {
   static choices = ["FRUTA1.png", "FRUTA2.png", "FRUTA3.png", "FRUTA4.png", "FRUTA5.png", "TOPPING1.png", "TOPPING2.png", "TOPPING3.png"]
   /**
    * 
-   * @returns {String} Fruta src
+   * @returns {String} Topping src
    */
   static get_one(){
-    return Fruta.choices[super.get_one(Fruta.choices.length)]
+    return Topping.choices[super.get_one(Topping.choices.length)]
   }
 }
 
 let pedidos = []
 class Pedido {
-  static next_id = 0
+  static next_id = 0 //todo restaurar a cero
   static crear() {
     let p = new Pedido()
     pedidos.push(p)
@@ -137,17 +193,18 @@ class Pedido {
   }
   static done = 2
   static _true = 1
+  static border_render = undefined
   constructor(){
     this.ID = ++Pedido.next_id
     this.seleccionarIngredientes()
     this.check_molde = false
     this.check_crema = false
-    this.check_fruta = false
+    this.check_topping = false
   }
   seleccionarIngredientes(){
     this.molde = Molde.get_one()
     this.crema = Crema.get_one()
-    this.fruta = Fruta.get_one() 
+    this.topping = Topping.get_one() 
   }
   /**
    * 
@@ -181,12 +238,12 @@ class Pedido {
   }
   /**
    * 
-   * @param {String} option Fruta a verificar
+   * @param {String} option Topping a verificar
    * @returns Código de verificación o falso
    */
-  checkFruta(option){
-    if (option === this.fruta){
-      this.check_fruta = true
+  checkTopping(option){
+    if (option === this.topping){
+      this.check_topping = true
       if (this.checkDone()){
         return Pedido.done
       }
@@ -199,32 +256,39 @@ class Pedido {
    * @returns Si el pedido ya está completo
    */
   checkDone(){
-    return this.check_molde && this.check_crema && this.check_fruta
+    return this.check_molde && this.check_crema && this.check_topping
   }
   /**
    * 
    * @returns Pedido como Nodo Html
    */
   renderizar(){
-    let html = `<div class="task" id="${this.ID}"><!--Terminado esto-->
-                <div class="cupcake_blueprint">
-                    <img src="./images/${this.molde}">
-                    <img src="./images/${this.crema}">
-                    <img src="./images/${this.fruta}">
+    let html = `<div class="task" id="${this.ID}" draggable="true" ondragstart="taskDragStart(event)">
+                <div class="cupcake_blueprint" draggable="false">
+                    <img src="./images/${this.molde}" draggable="false">
+                    <img src="./images/${this.crema}" draggable="false">
+                    <img src="./images/${this.topping}" draggable="false">
                 </div>
-                <label ondragenter="drag_enter(event)" ondragleave="drag_leave(event)" >
+                <label ondragenter="dishDragEnter(event)" ondragleave="dishDragLeave(event)" >
                     <img class="ingredient_blueprint" src="./images/${this.molde}">
-                    <div id="molde-${this.ID}" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                    <div id="molde-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="drag_enter(event)">
+                <label ondragenter="dishDragEnter(event) ondragleave="dishDragLeave(event)">
                     <img class="ingredient_blueprint" src="./images/${this.crema}">
-                    <div id="crema-${this.ID}" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                    <div id="crema-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="drag_enter(event)">
-                    <img class="ingredient_blueprint" src="./images/${this.fruta}">
-                    <div id="fruta-${this.ID}" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                <label ondragenter="dishDragEnter(event) ondragleave="dishDragLeave(event)">
+                    <img class="ingredient_blueprint" src="./images/${this.topping}">
+                    <div id="topping-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
             </div>`
     return createHtmlElement(html)
+  }
+  static renderizarBorder(){
+    if (Pedido.border_render==undefined){
+      let html = '<div id="border-task"></div>'
+      Pedido.border_render = createHtmlElement(html)
+    }
+    return Pedido.border_render
   }
 }

@@ -7,20 +7,10 @@
   </head>
   <body>
     <div id="input">
-        <div class="task">
-            <div class="cupcake_blueprint">
-                <img src="./images/MOLDE1.png" id="cb1">
-                <img src="./images/CREMA1.png" id="cb2">
-                <img src="./images/FRUTA1.png" id="cb3">
-            </div>
-            <label><input type="checkbox" class="cup_check">Cup</label>
-            <label><input type="checkbox" class="bread_check">Bread</label>
-            <label><input type="checkbox" class="topping_check">Topping</label>
-        </div>
     </div>
     <main id="gameplay">
-        <div id="cup_select" class="selector" onclick="showIng(event)">
-            <img src="./images/MOLDE1.png">
+        <div id="cup_select" class="selector" onclick="showIng(event)" ondragstart="ingDragStart(event)">
+            <img id="ing-1" src="./images/MOLDE1.png">
             <img src="./images/MOLDE1.png">
             <span class="transporter">
             </span>
@@ -31,26 +21,26 @@
         <div id="topping_select" class="selector">
             <span class="transporter"></span>
         </div>
-        <div id="task_desk">
-            <div class="task" id="algun_id"><!--Terminado esto-->
+        <div id="task_desk" ondragenter="deskDragEnter(event)" ondragover="dragOver(event)" ondragleave="deskDragLeave(event)" ondrop="deskDrop(event)">
+            <!--<div class="task" id="1" draggable="true">
                 <div class="cupcake_blueprint">
                     <img src="./images/MOLDE1.png">
                     <img src="./images/CREMA1.png">
                     <img src="./images/FRUTA1.png">
                 </div>
-                <label ondragenter="drag_enter(event)" ondragleave="drag_leave(event)" >
+                <label ondragenter="dishDragEnter(event)" ondragleave="dishDragLeave(event)" >
                     <img class="ingredient_blueprint" src="./images/MOLDE1.png">
-                    <div id="molde-algun_id" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                    <div id="molde-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="drag_enter(event)">
+                <label ondragenter="dishDragEnter(event)" ondragleave="drag_leave(event)">
                     <img class="ingredient_blueprint" src="./images/CREMA1.png">
-                    <div id="crema-algun_id" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                    <div id="crema-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="drag_enter(event)">
+                <label ondragenter="dishDragEnter(event)" ondragleave="drag_leave(event)">
                     <img class="ingredient_blueprint" src="./images/FRUTA1.png">
-                    <div id="fruta-algun_id" class="drop-zone" ondragover="drag_over(event)" ondrop="drop(event)"></div>
+                    <div id="topping-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-            </div>
+            </div>-->
         </div>
     </main>
     <div id="output"></div>
