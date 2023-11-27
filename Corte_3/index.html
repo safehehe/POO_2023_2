@@ -9,40 +9,22 @@
     <div id="input">
     </div>
     <main id="gameplay">
-        <div id="cup_select" class="selector" onclick="showIng(event)" ondragstart="ingDragStart(event)">
-            <img id="ing-1" src="./images/MOLDE1.png">
-            <img src="./images/MOLDE1.png">
+        <div id="cup-selector" class="selector" ondragstart="ingDragStart(event)">
             <span class="transporter">
             </span>
         </div>
-        <div id="cream_select" class="selector">
+        <div id="cream-selector" class="selector" ondragstart="ingDragStart(event)">
             <span class="transporter"></span>
         </div>
-        <div id="topping_select" class="selector">
+        <div id="topping-selector" class="selector" ondragstart="ingDragStart(event)">
             <span class="transporter"></span>
         </div>
         <div id="task_desk" ondragenter="deskDragEnter(event)" ondragover="dragOver(event)" ondragleave="deskDragLeave(event)" ondrop="deskDrop(event)">
-            <!--<div class="task" id="1" draggable="true">
-                <div class="cupcake_blueprint">
-                    <img src="./images/MOLDE1.png">
-                    <img src="./images/CREMA1.png">
-                    <img src="./images/FRUTA1.png">
-                </div>
-                <label ondragenter="dishDragEnter(event)" ondragleave="dishDragLeave(event)" >
-                    <img class="ingredient_blueprint" src="./images/MOLDE1.png">
-                    <div id="molde-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
-                </label>
-                <label ondragenter="dishDragEnter(event)" ondragleave="drag_leave(event)">
-                    <img class="ingredient_blueprint" src="./images/CREMA1.png">
-                    <div id="crema-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
-                </label>
-                <label ondragenter="dishDragEnter(event)" ondragleave="drag_leave(event)">
-                    <img class="ingredient_blueprint" src="./images/FRUTA1.png">
-                    <div id="topping-1" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
-                </label>
-            </div>-->
         </div>
     </main>
-    <div id="output"></div>
+    <div id="output">
+        <h4 id="time">Time playing: 00:00</h4>
+        <h4 id="tasks-done">Task done: 0</h4>
+    </div>
   </body>
 </html>

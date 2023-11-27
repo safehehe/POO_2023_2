@@ -1,13 +1,17 @@
 const ingredientType = "application/ing"
 const input = document.getElementById("input")
 const taskDesk = document.getElementById("task_desk")
-document.body.onload = addTask
+const output = document.getElementById("output")
+const outputTime = document.getElementById("time")
+const outputCount = document.getElementById("tasks-done")
+document.body.onload = setup
 const isIngredient = (ev)=> ev.dataTransfer.types.includes(ingredientType)
 function ingDragStart(ev){
   ev.dataTransfer.setData(ingredientType,ev.target.src)
   ev.dataTransfer.setData("text/plain",ev.target.id)
 }
 function dishDragEnter(ev){
+  console.log(ev.target)
   if (isIngredient(ev)){
     ev.target.classList.add("drop-active")
   }
@@ -26,51 +30,55 @@ function dishDrop(ev){
   if (isIngredient(ev)){
     console.log(ev)
     let [id_ing, ID_pedido] = ev.target.id.split("-")
+    let target = ev.target
     //console.log(`${id_ing}, ${ID_pedido}`)
     let ingrediente = ev.dataTransfer.getData(ingredientType).split("/").pop()
-    let ing_html_id = ev.dataTransfer.getData("text/plain")
-    let ing_html = document.getElementById(ing_html_id)
     //console.log(ingrediente)
     ID_pedido = parseInt(ID_pedido)
-    
+    const make_check = ()=>{
+        target.parentElement.classList.add("check_ingredient")
+        console.log(`Pedido ${ID_pedido} Terminado`)
+        let p_done = document.getElementById(ID_pedido)
+        setTimeout(()=>{
+          output.appendChild(p_done)
+          outputCountUpdate()
+        },1500)
+    }
     if (id_ing === "molde"){
       let result = pedidos[ID_pedido-1].checkMolde(ingrediente)
       if (result === Pedido._true){
-        ev.target.parentElement.classList.add("check_ingredient")
-        ing_html.style.opacity = "0"
+        target.parentElement.classList.add("check_ingredient")
       }else if (result === Pedido.done){
-        ev.target.parentElement.classList.add("check_ingredient")
-        console.log(`Pedido ${ID_pedido} Terminado`)
+        make_check()
       }else {
         console.log("noes")
-        ev.target.classList.remove("drop-active")
+        target.classList.remove("drop-active")
       }
     }else if(id_ing === "crema"){
       let result = pedidos[ID_pedido-1].checkCrema(ingrediente)
       if (result === Pedido._true){
-        ev.target.parentElement.classList.add("check_ingredient")
-        ing_html.style.opacity = "0"
+        target.parentElement.classList.add("check_ingredient")
       }else if (result === Pedido.done){
-        ev.target.parentElement.classList.add("check_ingredient")
-        console.log(`Pedido ${ID_pedido} Terminado`)
+        make_check()
       }else {
-        ev.target.classList.remove("drop-active")
+        target.classList.remove("drop-active")
       }
     }else if(id_ing === "topping"){
       let result = pedidos[ID_pedido-1].checkTopping(ingrediente)
       if (result === Pedido._true){
-        ev.target.parentElement.classList.add("check_ingredient")
-        ing_html.style.opacity = "0"
+        target.parentElement.classList.add("check_ingredient")
       }else if (result === Pedido.done){
-        ev.target.parentElement.classList.add("check_ingredient")
-        console.log(`Pedido ${ID_pedido} Terminado`)
+        make_check()
       }else {
-        ev.target.classList.remove("drop-active")
+        target.classList.remove("drop-active")
       }
     }
   }
 }
 
+function outputCountUpdate(){
+  outputCount.innerText = `Task done: ${output.childElementCount - 2}`
+}
 //todo Terminar el agragar ingrediente para usar la clase, mejorar la llegada de pedidos y ya
 
 const taskType = "application/task"
@@ -106,7 +114,6 @@ function deskDrop(ev){
 }
 
 
-
 let ing = 0
 function showIng(ev){
   //console.log(ev)
@@ -114,13 +121,49 @@ function showIng(ev){
   ings[ing].classList.add("show")
 
 }
+function setup(){
+  //Add moldes
+  let selector_moldes = document.getElementById("cup-selector")
+  for (let index = 0; index < Molde.choices.length; index++) {
+    const choice = Molde.choices[index];
+    let img_html = createHtmlElement(`<img id="${choice}" class="show" src="./images/${choice}">`)
+    setTimeout(()=>selector_moldes.appendChild(img_html), 700*index)
+  }
+  //Add cremas
+  let selector_crema = document.getElementById("cream-selector")
+  for (let index = 0; index < Crema.choices.length; index++) {
+    const choice = Crema.choices[index];
+    let img_html = createHtmlElement(`<img id="${choice}" class="show" src="./images/${choice}">`)
+    setTimeout(()=>selector_crema.appendChild(img_html), 700*index)
+  }
 
+  //Add topping
+  let selector_topping = document.getElementById("topping-selector")
+  for (let index = 0; index < Topping.choices.length; index++) {
+    const choice = Topping.choices[index];
+    let img_html = createHtmlElement(`<img id="${choice}" class="show" src="./images/${choice}">`)
+    setTimeout(()=>selector_topping.appendChild(img_html),700*index)
+  }
+  addTask()
+  timer()
+}
 
 function addTask(){
-  //setTimeout(addTask,10000)
+  setTimeout(addTask,8000)
   console.log("Pedido creado")
   let next_pedido = Pedido.crear()
   input.appendChild(next_pedido.renderizar())
+}
+
+let time_seconds = 0
+let time_minutes = 0
+function timer(){
+  setTimeout(timer, 500)
+  ++time_seconds
+  if (time_seconds % 60 == 0){
+    ++time_minutes
+  }
+  outputTime.innerText = `Time playing: ${time_minutes}:${time_seconds}`
 }
 
 /**
@@ -273,11 +316,11 @@ class Pedido {
                     <img class="ingredient_blueprint" src="./images/${this.molde}">
                     <div id="molde-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="dishDragEnter(event) ondragleave="dishDragLeave(event)">
+                <label ondragenter="dishDragEnter(event)" ondragleave="dishDragLeave(event)">
                     <img class="ingredient_blueprint" src="./images/${this.crema}">
                     <div id="crema-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
-                <label ondragenter="dishDragEnter(event) ondragleave="dishDragLeave(event)">
+                <label ondragenter="dishDragEnter(event)" ondragleave="dishDragLeave(event)">
                     <img class="ingredient_blueprint" src="./images/${this.topping}">
                     <div id="topping-${this.ID}" class="drop-zone" ondragover="dragOver(event)" ondrop="dishDrop(event)"></div>
                 </label>
