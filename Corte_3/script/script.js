@@ -163,7 +163,7 @@ function timer(){
   if (time_seconds % 60 == 0){
     ++time_minutes
   }
-  outputTime.innerText = `Time playing: 0${time_minutes}:${time_seconds%60}`
+  outputTime.innerText = `Time playing: ${time_minutes}:${time_seconds%60}`
 }
 
 /**
